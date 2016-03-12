@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 import React, {
   AppRegistry,
   Component,
@@ -7,6 +7,7 @@ import React, {
   View,
   MapView
 } from 'react-native';
+
 var styles = require('./styles.ios.js');
 
 var MONUMENTS = [
@@ -62,11 +63,13 @@ var WalkAbout = React.createClass({
       <View>
        <MapView 
         style={styles.map}
+        showsUserLocation={true}
+        followUserLocation={true}
         region={{
         latitude: parseFloat(this.state.lastLat),
         longitude: parseFloat(this.state.lastLong),
         latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421,
+        longitudeDelta: 0.00421
         }}
       annotations={MONUMENTS} />
         <Text>
