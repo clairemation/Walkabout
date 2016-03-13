@@ -668,7 +668,7 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
 				PRODUCT_NAME = WalkAbout;
 			};
 			name = Debug;
@@ -687,7 +687,7 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
 				PRODUCT_NAME = WalkAbout;
 			};
 			name = Release;

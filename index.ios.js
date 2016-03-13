@@ -74,8 +74,8 @@ var WalkAbout = React.createClass({
         region={{
         latitude: parseFloat(this.state.lastLat),
         longitude: parseFloat(this.state.lastLong),
-        latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421
+        latitudeDelta: 0.007,
+        longitudeDelta: 0.0035
         }}
       annotations={MONUMENTS} />
         <Text>
