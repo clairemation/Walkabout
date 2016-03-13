@@ -15,6 +15,12 @@ var MONUMENTS = [
     title: "NYSE!",
     latitude: 40.706911, 
     longitude: -74.011045
+  },
+  {
+    key: 2,
+    title: "The wrong Union Square",
+    latitude: 37.787689,
+    longitude: -122.406858
   }
 ]
 
@@ -68,8 +74,8 @@ var WalkAbout = React.createClass({
         region={{
         latitude: parseFloat(this.state.lastLat),
         longitude: parseFloat(this.state.lastLong),
-        latitudeDelta: 0.00922,
-        longitudeDelta: 0.00421
+        latitudeDelta: 0.007,
+        longitudeDelta: 0.0035
         }}
       annotations={MONUMENTS} />
         <Text>
