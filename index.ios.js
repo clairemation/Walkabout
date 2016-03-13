@@ -15,6 +15,12 @@ var MONUMENTS = [
     title: "NYSE!",
     latitude: 40.706911, 
     longitude: -74.011045
+  },
+  {
+    key: 2,
+    title: "The wrong Union Square",
+    latitude: 37.787689,
+    longitude: -122.406858
   }
 ]
 
