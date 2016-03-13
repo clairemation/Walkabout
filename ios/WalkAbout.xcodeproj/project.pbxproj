@@ -380,7 +380,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 89VGL2CJ9Z;
+						DevelopmentTeam = SMW5TAULFR;
 					};
 				};
 			};
@@ -658,6 +658,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -668,8 +669,9 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout1;
 				PRODUCT_NAME = WalkAbout;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -678,6 +680,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -687,8 +690,9 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout1;
 				PRODUCT_NAME = WalkAbout;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

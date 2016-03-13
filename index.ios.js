@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 import React, {
   AppRegistry,
   Component,
@@ -7,7 +7,6 @@ import React, {
   View,
   MapView
 } from 'react-native';
-
 var styles = require('./styles.ios.js');
 
 var MONUMENTS = [
@@ -33,6 +32,7 @@ var WalkAbout = React.createClass({
       initialLong: 'unknown',
       lastLat: 'unknown',
       lastLong: 'unknown',
+      inGeofence: false
     };
   },
 
@@ -48,14 +48,23 @@ var WalkAbout = React.createClass({
       {enableHighAccuracy: true, timeout: 1000, maximumAge: 0}
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
+      var self = this
       this.setState({
         lastLat: position.coords.latitude,
         lastLong: position.coords.longitude,
       });
+      console.log(this.state.lastLat)
+      console.log(this.state.lastLong)
       MONUMENTS.forEach(function(monument){
         var latDistance = position.coords.latitude - monument.latitude;
         var longDistance = position.coords.longitude - monument.longitude;
-        if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.0005) {alert(monument.title)};
+        if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.0005) {
+          self.setState({inGeofence: true})
+        }
+        else {
+          self.setState({inGeofence: false})
+          console.log(self.state.inGeofence)
+        }
       });
     });
   },
@@ -71,13 +80,7 @@ var WalkAbout = React.createClass({
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
-        region={{
-        latitude: parseFloat(this.state.lastLat),
-        longitude: parseFloat(this.state.lastLong),
-        latitudeDelta: 0.007,
-        longitudeDelta: 0.0035
-        }}
-      annotations={MONUMENTS} />
+        annotations={MONUMENTS} />
         <Text>
         {"\n"}
           <Text style={styles.title}>Initial position: </Text>
