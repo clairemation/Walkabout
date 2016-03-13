@@ -14,12 +14,6 @@ var MONUMENTS = [
     title: "NYSE!",
     latitude: 40.706911, 
     longitude: -74.011045
-  },
-  {
-    key: 2,
-    title: "The wrong Union Square",
-    latitude: 37.787689,
-    longitude: -122.406858
   }
 ]
 
@@ -47,26 +41,28 @@ var WalkAbout = React.createClass({
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 1000, maximumAge: 0}
     );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      var self = this
-      this.setState({
-        lastLat: position.coords.latitude,
-        lastLong: position.coords.longitude,
-      });
-      console.log(this.state.lastLat)
-      console.log(this.state.lastLong)
-      MONUMENTS.forEach(function(monument){
-        var latDistance = position.coords.latitude - monument.latitude;
-        var longDistance = position.coords.longitude - monument.longitude;
-        if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.0005) {
-          self.setState({inGeofence: true})
+    
+    var self = this
+    if (this.state.inGeofence == false){
+      this.watchID = navigator.geolocation.watchPosition((position) => {
+        this.setState({
+          lastLat: position.coords.latitude,
+          lastLong: position.coords.longitude,
+        });
+        for(var i = 0; i < MONUMENTS.length; i++){
+          var monument = MONUMENTS[i]
+          var latDistance = position.coords.latitude - monument.latitude;
+          var longDistance = position.coords.longitude - monument.longitude;
+          if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
+            self.setState({inGeofence: true})
+            console.log(latDistance, longDistance) 
+            console.log(self.state.inGeofence)
+            break          
+          }
         }
-        else {
-          self.setState({inGeofence: false})
-          console.log(self.state.inGeofence)
-        }
       });
-    });
+    }
+    
   },
 
   componentWillUnmount: function() {
@@ -74,6 +70,15 @@ var WalkAbout = React.createClass({
   },
 
   render: function() {
+    if(this.state.inGeofence == true){
+      return this.renderGeoPage();
+    }
+    else{
+    return this.renderMap();
+    }
+  },
+
+  renderMap: function(){
     return (
       <View>
        <MapView 
@@ -95,9 +100,21 @@ var WalkAbout = React.createClass({
           {JSON.stringify(this.state.lastLong)}
         </Text>
       </View>
-       
+    );
+  },
+
+
+  renderGeoPage: function(){
+    return (
+      <View>
+        <Text style={styles.title}>
+        {"\n"}
+        You Are Inside a Geofence! 
+        </Text>
+      </View>
     );
   }
+
 });
 
 
