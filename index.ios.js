@@ -1,4 +1,5 @@
   'use strict';
+
 import React, {
   AppRegistry,
   Component,
@@ -9,6 +10,7 @@ import React, {
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
+
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
@@ -29,104 +31,86 @@ var MONUMENTS = [
 
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
+  currentMonument: undefined,
 
   getInitialState: function() {
     return {
-      initialLat: 'unknown',
-      initialLong: 'unknown',
       lastLat: 'unknown',
       lastLong: 'unknown',
       inGeofence: false,
-      currentMonument: {}
     };
   },
+  
+  enableWatchPosition: function(){
+    console.log('enable watch')
+    this.watchID = navigator.geolocation.watchPosition((position) => {
+      alert(position.coords.latitude, position.coords.longitude)
+      this.setState({
+        lastLat: position.coords.latitude,
+        lastLong: position.coords.longitude,
+      })
+    },(error) => alert(error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
+    )},
 
-  componentDidMount: function() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          initialLat: position.coords.latitude,
-          initialLong: position.coords.longitude,
-        });
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 1000, maximumAge: 0}
-    );
-    
-    var self = this
-    if (this.state.inGeofence == false){
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-        this.setState({
-          lastLat: position.coords.latitude,
-          lastLong: position.coords.longitude,
-        });
-        for(var i = 0; i < MONUMENTS.length; i++){
-          var monument = MONUMENTS[i]
-          var latDistance = position.coords.latitude - monument.latitude;
-          var longDistance = position.coords.longitude - monument.longitude;
-          if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
-            self.setState({
-              inGeofence: true,
-              currentMonument: monument,
-            })
-            console.log(latDistance, longDistance) 
-            console.log(self.state.inGeofence)
-            break          
-          }
-        }
-      });
-    }
-    
+  disableWatchPosition: function(){
+    console.log('disable watch')
+    navigator.geolocation.clearWatch(this.watchID); 
   },
 
-  componentWillUnmount: function() {
-    navigator.geolocation.clearWatch(this.watchID);
+  shouldComponentUpdate: function(){
+    console.log('component update')
+    return this.withinGeofence()
+  },
+
+  withinGeofence: function(){
+    for(var i = 0; i < MONUMENTS.length; i++){
+      var monument = MONUMENTS[i]
+      var latDistance = this.state.lastLat - monument.latitude;
+      var longDistance = this.state.lastLong - monument.longitude;
+      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.1) {
+        this.currentMonument = MONUMENTS[i]
+        return true
+      }
+    }
+
+    return false
+  },
+
+  toggleGeofenceState: function() {
+    this.state.inGeofence = !this.state.inGeofence;
   },
 
   render: function() {
-    if(this.state.inGeofence == true){
-      return this.renderGeoPage();
-    }
-    else{
-    return this.renderMap();
-    }
-  },
+    if(this.currentMonument)
+      return (<MonumentDetail monument={this.currentMonument} />)
+    else
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
+  }
+});
 
-  renderMap: function(){
-    return (
-      <View>
-       <MapView 
+var MonumentMap = React.createClass({
+  render: function(){ return(
+     <View>
+      <MapView 
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
         annotations={MONUMENTS} />
-        <Text>
-        {"\n"}
-          <Text style={styles.title}>Initial position: </Text>
-          {JSON.stringify(this.state.initialLat)}
-          {JSON.stringify(this.state.initialLong)}
+    </View>
+  )},
 
-        </Text>
-        <Text>
-        {"\n"}
-          <Text style={styles.title}>Current position: </Text>
-          {JSON.stringify(this.state.lastLat)}
-          {JSON.stringify(this.state.lastLong)}
-        </Text>
-      </View>
-    );
+  componentDidMount: function(){
+    console.log('map mounted')
+    this.props.enableWatchLocation();
   },
 
+  componentWillUnmount: function() {
+    console.log('map un-mounted')
+    this.props.disableWatchLocation();
+  },
 
-  renderGeoPage: function(){
-    return (
-      <MonumentDetail monument={this.state.currentMonument}/>
-    );
-  }
-
-});
-
-
+})
 
 
 var MonumentDetail = React.createClass({
@@ -148,19 +132,30 @@ var MonumentDetail = React.createClass({
     this.state.audioFile.play();
   },
 
+  goBack: function() {
+    console.log("Back to map");
+  },
   render: function() {
-    this.state.audioFile.play((success) => {
+
+    this.state.audioFile.play( (success) => {
       if (success) {
+        console.log("STEP 3")
         console.log('Audio played');
       } else {
         console.log('Audio failed to play');
       }
     });
+
     return (
       <View>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{this.state.monument.title}</Text>
           <Text style={styles.title}>{this.state.monument.description}</Text>
+        </View>
+        <View>
+          <TouchableOpacity onPress={this.goBack}>
+            <Text>Back to Map</Text>
+          </TouchableOpacity>
         </View>
       </View>
       )
