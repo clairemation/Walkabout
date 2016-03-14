@@ -64,7 +64,7 @@ var WalkAbout = React.createClass({
           var monument = MONUMENTS[i]
           var latDistance = position.coords.latitude - monument.latitude;
           var longDistance = position.coords.longitude - monument.longitude;
-          if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 1) {
+          if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
             self.setState({
               inGeofence: true,
               currentMonument: monument,
