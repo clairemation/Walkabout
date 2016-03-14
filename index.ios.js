@@ -17,8 +17,8 @@ var Sound = require('react-native-sound');
 var MONUMENTS = [
   {
     title: "NYSE!",
-    latitude: 40.706911, 
-    longitude: -74.011045,
+    latitude: 40.706851, 
+    longitude: -74.010158,
     description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
   },
   {
@@ -44,37 +44,35 @@ var WalkAbout = React.createClass({
   enableWatchPosition: function(){
     console.log('enable watch')
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      alert(position.coords.latitude, position.coords.longitude)
-      this.setState({
-        lastLat: position.coords.latitude,
-        lastLong: position.coords.longitude,
-      })
-    },(error) => alert(error.message),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 5000 }
-    )},
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      var self = this;
+      this.withinGeofence(latitude, longitude, self)
+    })
+  },
 
   disableWatchPosition: function(){
     console.log('disable watch')
     navigator.geolocation.clearWatch(this.watchID); 
   },
 
-  shouldComponentUpdate: function(){
-    console.log('component update')
-    return this.withinGeofence()
-  },
 
-  withinGeofence: function(){
+  withinGeofence: function(latitude, longitude, self){
+    console.log('checking geoFence')
     for(var i = 0; i < MONUMENTS.length; i++){
       var monument = MONUMENTS[i]
-      var latDistance = this.state.lastLat - monument.latitude;
-      var longDistance = this.state.lastLong - monument.longitude;
-      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.1) {
-        this.currentMonument = MONUMENTS[i]
-        return true
+      var latDistance = latitude - monument.latitude;
+      var longDistance = longitude - monument.longitude;
+      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 1) {
+        console.log('within a geoFence')
+        self.currentMonument = MONUMENTS[i]
+        self.setState({
+          lastLat: latitude,
+          lastLong: longitude,
+          inGeofence: true,
+        })
       }
     }
-
-    return false
   },
 
   toggleGeofenceState: function() {
@@ -82,10 +80,14 @@ var WalkAbout = React.createClass({
   },
 
   render: function() {
-    if(this.currentMonument)
+    if(this.state.inGeofence){
+      console.log('rendering MonumentDetail')
       return (<MonumentDetail monument={this.currentMonument} />)
-    else
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
+    }
+    else{
+      console.log('rendering map')
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} withinGeofence={this.withinGeofence}/>)
+    }
   }
 });
 
