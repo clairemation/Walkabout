@@ -126,33 +126,6 @@ var WalkAbout = React.createClass({
 
 });
 
-var Button = React.createClass({
-  getInitialState: function(){
-    return {pressing: false};
-  },
-
-  _onPressIn: function() {
-    this.setState({pressing: true});
-  },
-
-  _onPressOut: function() {
-    this.setState({pressing: false});
-  },
-
-  render: function() {
-    return (
-    <View>
-      <TouchableHighlight onPressIn={this._onPressIn, this.props.handlePress} 
-                          onPressOut={this._onPressOut}>
-        <View>
-          <Text>{this.props.name}</Text>
-        </View>
-      </TouchableHighlight>
-    </View>
-    );
-  }
-
-  })
 
 
 
