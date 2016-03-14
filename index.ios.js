@@ -63,7 +63,7 @@ var WalkAbout = React.createClass({
       var monument = MONUMENTS[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
-      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 1) {
+      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
         console.log('within a geoFence')
         self.currentMonument = MONUMENTS[i]
         self.setState({
@@ -86,7 +86,7 @@ var WalkAbout = React.createClass({
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} withinGeofence={this.withinGeofence}/>)
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
     }
   }
 });
@@ -121,11 +121,14 @@ var MonumentDetail = React.createClass({
     return{
     monument: this.props.monument,
     audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
-      if (error) {console.log('failed to load sound ', error)} else {
-        console.log('sound loaded successfully')}
-      })
-    }},
-
+      if(error){
+        console.log('failed to load sound ', error)
+      } else {
+        console.log('sound loaded successfully')
+        this.playAudio();
+      }
+    })
+  }},
   pauseAudio: function() {
     this.state.audioFile.pause();
   },
@@ -138,16 +141,6 @@ var MonumentDetail = React.createClass({
     console.log("Back to map");
   },
   render: function() {
-
-    this.state.audioFile.play( (success) => {
-      if (success) {
-        console.log("STEP 3")
-        console.log('Audio played');
-      } else {
-        console.log('Audio failed to play');
-      }
-    });
-
     return (
       <View>
         <View style={styles.textContainer}>
@@ -162,7 +155,6 @@ var MonumentDetail = React.createClass({
       </View>
       )
   }
-
 })
 
 AppRegistry.registerComponent('WalkAbout', () => WalkAbout);
