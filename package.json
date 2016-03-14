@@ -8,6 +8,7 @@
   "dependencies": {
     "react-native": "^0.21.0",
     "react-native-maps": "^0.3.0",
+    "react-native-sound": "^0.7.3",
     "react-native-viewport-units": "0.0.5"
   }
 }

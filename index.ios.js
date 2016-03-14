@@ -5,15 +5,25 @@ import React, {
   StyleSheet,
   Text,
   View,
-  MapView
+  MapView,
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
 var styles = require('./styles.ios.js');
+var Sound = require('react-native-sound');
 
 var MONUMENTS = [
   {
     title: "NYSE!",
     latitude: 40.706911, 
-    longitude: -74.011045
+    longitude: -74.011045,
+    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
+  },
+  {
+    title: "The wrong Union Square",
+    latitude: 37.787689,
+    longitude: -122.406858,
+    description: "This version of Union Square has been deprecated."
   }
 ]
 
@@ -26,7 +36,8 @@ var WalkAbout = React.createClass({
       initialLong: 'unknown',
       lastLat: 'unknown',
       lastLong: 'unknown',
-      inGeofence: false
+      inGeofence: false,
+      currentMonument: {}
     };
   },
 
@@ -54,7 +65,10 @@ var WalkAbout = React.createClass({
           var latDistance = position.coords.latitude - monument.latitude;
           var longDistance = position.coords.longitude - monument.longitude;
           if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
-            self.setState({inGeofence: true})
+            self.setState({
+              inGeofence: true,
+              currentMonument: monument,
+            })
             console.log(latDistance, longDistance) 
             console.log(self.state.inGeofence)
             break          
@@ -106,17 +120,52 @@ var WalkAbout = React.createClass({
 
   renderGeoPage: function(){
     return (
-      <View>
-        <Text style={styles.title}>
-        {"\n"}
-        You Are Inside a Geofence! 
-        </Text>
-      </View>
+      <MonumentDetail monument={this.state.currentMonument}/>
     );
   }
 
 });
 
 
+
+
+var MonumentDetail = React.createClass({
+
+  getInitialState: function() {
+    return{
+    monument: this.props.monument,
+    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
+      if (error) {console.log('failed to load sound ', error)} else {
+        console.log('sound loaded successfully')}
+      })
+    }},
+
+  pauseAudio: function() {
+    this.state.audioFile.pause();
+  },
+
+  playAudio: function() {
+    this.state.audioFile.play();
+  },
+
+  render: function() {
+    this.state.audioFile.play((success) => {
+      if (success) {
+        console.log('Audio played');
+      } else {
+        console.log('Audio failed to play');
+      }
+    });
+    return (
+      <View>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{this.state.monument.title}</Text>
+          <Text style={styles.title}>{this.state.monument.description}</Text>
+        </View>
+      </View>
+      )
+  }
+
+})
 
 AppRegistry.registerComponent('WalkAbout', () => WalkAbout);

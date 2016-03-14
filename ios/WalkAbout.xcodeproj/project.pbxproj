@@ -22,6 +22,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		D710A7131C96184200B21A97 /* ringding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A7121C96184200B21A97 /* ringding.mp3 */; };
+		D710A71A1C96197700B21A97 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D710A7191C96195900B21A97 /* libRNSound.a */; };
+		D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A71B1C962B0500B21A97 /* ding.mp3 */; };
 		EFD89F7D97D0406796C28C4B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C512C7D315E2439DB32E969B /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +113,13 @@
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
+		D710A7181C96195900B21A97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D710A7141C96195900B21A97 /* RNSound.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 19825A1E1BD4A89800EE0337;
+			remoteInfo = RNSound;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +147,9 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C512C7D315E2439DB32E969B /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
 		D710A66E1C94D3CE00B21A97 /* react-native-viewport-units */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-viewport-units"; path = "../node_modules/react-native-viewport-units"; sourceTree = "<group>"; };
+		D710A7121C96184200B21A97 /* ringding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringding.mp3; sourceTree = "<group>"; };
+		D710A7141C96195900B21A97 /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
+		D710A71B1C962B0500B21A97 /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D710A71A1C96197700B21A97 /* libRNSound.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -274,6 +288,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D710A7141C96195900B21A97 /* RNSound.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -305,6 +320,8 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* WalkAboutTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				D710A7121C96184200B21A97 /* ringding.mp3 */,
+				D710A71B1C962B0500B21A97 /* ding.mp3 */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -323,6 +340,14 @@
 			isa = PBXGroup;
 			children = (
 				87EDBF2F1C937B6500D41B88 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D710A7151C96195900B21A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D710A7191C96195900B21A97 /* libRNSound.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -380,7 +405,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = SMW5TAULFR;
+						DevelopmentTeam = 89VGL2CJ9Z;
 					};
 				};
 			};
@@ -439,6 +464,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = D710A7151C96195900B21A97 /* Products */;
+					ProjectRef = D710A7141C96195900B21A97 /* RNSound.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -527,6 +556,13 @@
 			remoteRef = 87EDBF2E1C937B6500D41B88 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D710A7191C96195900B21A97 /* libRNSound.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSound.a;
+			remoteRef = D710A7181C96195900B21A97 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -541,8 +577,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D710A7131C96184200B21A97 /* ringding.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,7 +707,7 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
 				PRODUCT_NAME = WalkAbout;
 				PROVISIONING_PROFILE = "";
 			};
@@ -690,7 +728,7 @@
 				INFOPLIST_FILE = WalkAbout/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.WalkAbout2;
 				PRODUCT_NAME = WalkAbout;
 				PROVISIONING_PROFILE = "";
 			};
