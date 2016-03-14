@@ -121,11 +121,14 @@ var MonumentDetail = React.createClass({
     return{
     monument: this.props.monument,
     audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
-      if (error) {console.log('failed to load sound ', error)} else {
-        console.log('sound loaded successfully')}
-      })
-    }},
-
+      if(error){
+        console.log('failed to load sound ', error)
+      } else {
+        console.log('sound loaded successfully')
+        this.playAudio();
+      }
+    })
+  }},
   pauseAudio: function() {
     this.state.audioFile.pause();
   },
@@ -138,16 +141,6 @@ var MonumentDetail = React.createClass({
     console.log("Back to map");
   },
   render: function() {
-
-    this.state.audioFile.play( (success) => {
-      if (success) {
-        console.log("STEP 3")
-        console.log('Audio played');
-      } else {
-        console.log('Audio failed to play');
-      }
-    });
-
     return (
       <View>
         <View style={styles.textContainer}>
@@ -162,7 +155,6 @@ var MonumentDetail = React.createClass({
       </View>
       )
   }
-
 })
 
 AppRegistry.registerComponent('WalkAbout', () => WalkAbout);
