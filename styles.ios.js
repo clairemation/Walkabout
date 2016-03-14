@@ -18,6 +18,19 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     fontWeight: '500',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    height: 40,
+    width: 60,
+  },
+  textContainer: {
+    borderWidth: 1,
+    borderColor: '#000000',
+    height: 600,
+    marginTop: 20,
+  },
 });
 
 module.exports = styles;
