@@ -7,6 +7,7 @@ import React, {
   Text,
   View,
   MapView,
+  SegmentedControlIOS,
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
@@ -136,6 +137,10 @@ var MonumentDetail = React.createClass({
   render: function() {
     return (
       <View>
+        <SegmentedControlIOS values={['Map', 'Monument']}
+                            selectedIndex={1}
+                            style={{marginTop: 30}}
+                            onChange={this.props.goBack} />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{this.state.monument.title}</Text>
           <Text style={styles.title}>{this.state.monument.description}</Text>
