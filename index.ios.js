@@ -17,16 +17,11 @@ var Sound = require('react-native-sound');
 var MONUMENTS = [
   {
     title: "NYSE!",
-    latitude: 40.706851, 
+    latitude: 40.706851,
     longitude: -74.010158,
     description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
   },
-  {
-    title: "The wrong Union Square",
-    latitude: 37.787689,
-    longitude: -122.406858,
-    description: "This version of Union Square has been deprecated."
-  }
+
 ]
 
 var WalkAbout = React.createClass({
@@ -37,10 +32,10 @@ var WalkAbout = React.createClass({
     return {
       lastLat: 'unknown',
       lastLong: 'unknown',
-      inGeofence: false,
+      inGeofence: true,
     };
   },
-  
+
   enableWatchPosition: function(){
     console.log('enable watch')
     this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -53,7 +48,7 @@ var WalkAbout = React.createClass({
 
   disableWatchPosition: function(){
     console.log('disable watch')
-    navigator.geolocation.clearWatch(this.watchID); 
+    navigator.geolocation.clearWatch(this.watchID);
   },
 
 
@@ -75,14 +70,15 @@ var WalkAbout = React.createClass({
     }
   },
 
-  toggleGeofenceState: function() {
-    this.state.inGeofence = !this.state.inGeofence;
+  backToMap: function(){
+    this.setState({inGeofence: false})
   },
 
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering MonumentDetail')
-      return (<MonumentDetail monument={this.currentMonument} />)
+      return (<MonumentDetail monument={MONUMENTS[0]}
+                              goBack={this.backToMap} />)
     }
     else{
       console.log('rendering map')
@@ -94,7 +90,7 @@ var WalkAbout = React.createClass({
 var MonumentMap = React.createClass({
   render: function(){ return(
      <View>
-      <MapView 
+      <MapView
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
@@ -137,9 +133,6 @@ var MonumentDetail = React.createClass({
     this.state.audioFile.play();
   },
 
-  goBack: function() {
-    console.log("Back to map");
-  },
   render: function() {
     return (
       <View>
@@ -148,7 +141,7 @@ var MonumentDetail = React.createClass({
           <Text style={styles.title}>{this.state.monument.description}</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={this.goBack}>
+          <TouchableOpacity onPress={this.props.goBack}>
             <Text>Back to Map</Text>
           </TouchableOpacity>
         </View>
