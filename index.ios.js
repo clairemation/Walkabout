@@ -1,4 +1,4 @@
-  'use strict';
+'use strict';
 
 import React, {
   AppRegistry,
@@ -34,7 +34,7 @@ var WalkAbout = React.createClass({
     return {
       lastLat: 'unknown',
       lastLong: 'unknown',
-      inGeofence: false,
+      inGeofence: true,
     };
   },
 
@@ -86,6 +86,37 @@ var WalkAbout = React.createClass({
       console.log('rendering map')
       return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
     }
+  }
+});
+
+
+var inGeoFencePage = React.createClass({
+
+  monumentComponent: '<MonumentDetail monument={this.props.monument} />',
+  mapComponent: '<MonumentMap />',
+
+  getInitialState: function() {
+    displayComponent: monument
+  },
+
+  swapComponent: function(event) {
+    if (event.nativeEvent.selectedSegmentIndex == 0)
+      this.setState({displayComponent: mapComponent});
+    else
+      this.setState({displayComponent: monumentComponent});
+  },
+
+  render: function() {
+    return(
+      <View>
+        <SegmentedControlIOS values={['Map', this.props.monument.title]}
+                            selectedIndex={1}
+                            style={{marginTop: 30}}
+                            onChange={this.swapComponent(event)} />
+
+        {this.state.displayComponent}
+      </View>
+    );
   }
 });
 
@@ -147,10 +178,6 @@ var MonumentDetail = React.createClass({
   render: function() {
     return (
       <View>
-        <SegmentedControlIOS values={['Map', this.state.monument.title]}
-                            selectedIndex={1}
-                            style={{marginTop: 30}}
-                            onChange={this.props.goBack} />
         <View style={styles.textContainer}>
           <H1>{this.state.monument.title}</H1>
           <Image source={{uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'}}
