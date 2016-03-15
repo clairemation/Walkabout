@@ -26,15 +26,16 @@ var MONUMENTS = [
 
 ]
 
+var ENTERING_RADIUS = 0.001
+var LEAVING_RADIUS = 0.001
+
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
-  currentMonument: MONUMENTS[0],
+  currentMonument: undefined,
 
   getInitialState: function() {
     return {
-      lastLat: 'unknown',
-      lastLong: 'unknown',
-      inGeofence: true,
+      inGeofence: false,
     };
   },
 
@@ -43,72 +44,55 @@ var WalkAbout = React.createClass({
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      var self = this;
       if (this.currentMonument)
-        this.checkForLeavingGeofence(latitude, longitude, this.currentMonument, self)
+        this.checkForLeavingGeofence(latitude, longitude, this.currentMonument)
       else
-        this.checkForEnteringGeofence(latitude, longitude, self)
+        this.checkForEnteringGeofence(latitude, longitude)
     })
   },
 
-  disableWatchPosition: function(){
-    console.log('disable watch')
-    navigator.geolocation.clearWatch(this.watchID);
-  },
-
-  checkForLeavingGeofence: function(latitude, longitude, monument, self){
+  checkForLeavingGeofence: function(latitude, longitude, monument){
     console.log('inside geofence, checking for user leaving')
     var latDistance = latitude - monument.latitude;
     var longDistance = longitude - monument.longitude;
-    if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= 0.001) {
-      self.currentMonument = null
-      self.setState({
-          lastLat: latitude,
-          lastLong: longitude,
+    if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= LEAVING_RADIUS) {
+      this.currentMonument = null
+      this.setState({
           inGeofence: false,
         })
       }
   },
 
-  checkForEnteringGeofence: function(latitude, longitude, self){
+  checkForEnteringGeofence: function(latitude, longitude){
     console.log('outside geofences, checking for user entering')
     for(var i = 0; i < MONUMENTS.length; i++){
       var monument = MONUMENTS[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
-      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
+      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < ENTERING_RADIUS) {
         console.log('within a geoFence')
-        self.currentMonument = MONUMENTS[0]
-        self.setState({
-          lastLat: latitude,
-          lastLong: longitude,
+        this.currentMonument = MONUMENTS[i]
+        this.setState({
           inGeofence: true,
         })
       }
     }
   },
 
-  backToMap: function(){
-    this.setState({inGeofence: false})
-  },
-
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
-      return (<InGeoFencePage monument={MONUMENTS[0]} enableWatchLocation={this.enableWatchPosition} />)
+      return (<InGeoFencePage monument={this.currentMonument} enableWatchLocation={this.enableWatchPosition} />)
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} />)
     }
   }
 });
 
 
 var InGeoFencePage = React.createClass({
-
-  monumentComponent: <MonumentDetail monument={MONUMENTS[0]} />,
-  mapComponent: <MonumentMap />,
 
   getInitialState: function() {
     return {
@@ -124,7 +108,7 @@ var InGeoFencePage = React.createClass({
     if (event.nativeEvent.selectedSegmentIndex == 0)
       this.setState({displayComponent: <MonumentMap enableWatchLocation={this.props.enableWatchLocation} />});
     else
-      this.setState({displayComponent: <MonumentDetail monument={MONUMENTS[0]} />});
+      this.setState({displayComponent: <MonumentDetail monument={this.props.monument} />});
   },
 
   render: function() {
