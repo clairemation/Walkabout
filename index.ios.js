@@ -61,7 +61,7 @@ var WalkAbout = React.createClass({
     var latDistance = latitude - monument.latitude;
     var longDistance = longitude - monument.longitude;
     if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= 0.001) {
-      self.currentMonument = nil
+      self.currentMonument = null
       self.setState({
           lastLat: latitude,
           lastLong: longitude,
@@ -71,7 +71,7 @@ var WalkAbout = React.createClass({
   },
 
   checkForEnteringGeofence: function(latitude, longitude, self){
-    console.log('checking geoFence')
+    console.log('outside geofences, checking for user entering')
     for(var i = 0; i < MONUMENTS.length; i++){
       var monument = MONUMENTS[i]
       var latDistance = latitude - monument.latitude;
@@ -114,6 +114,10 @@ var InGeoFencePage = React.createClass({
     return {
       displayComponent: <MonumentDetail monument={this.props.monument} />
     };
+  },
+
+  componentDidMount: function(){
+    this.props.enableWatchLocation();
   },
 
   swapComponent: function(event) {
