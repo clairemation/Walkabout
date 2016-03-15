@@ -16,16 +16,7 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var MONUMENTS = [
-  {
-    title: "NYSE!",
-    latitude: 40.706851,
-    longitude: -74.010158,
-    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City.",
-    uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'
-  },
 
-]
 
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
@@ -36,8 +27,11 @@ var WalkAbout = React.createClass({
       lastLat: 'unknown',
       lastLong: 'unknown',
       inGeofence: false,
+      monumentArray: require('./ios/monuments.json'),
     };
   },
+
+
 
   enableWatchPosition: function(){
     console.log('enable watch')
@@ -57,13 +51,13 @@ var WalkAbout = React.createClass({
 
   withinGeofence: function(latitude, longitude, self){
     console.log('checking geoFence')
-    for(var i = 0; i < MONUMENTS.length; i++){
-      var monument = MONUMENTS[i]
+    for(var i = 0; i < this.state.monumentArray.length; i++){
+      var monument = this.state.monumentArray[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
       if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
         console.log('within a geoFence')
-        self.currentMonument = MONUMENTS[i]
+        self.currentMonument = this.state.monumentArray[i]
         self.setState({
           lastLat: latitude,
           lastLong: longitude,
@@ -85,7 +79,7 @@ var WalkAbout = React.createClass({
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} />)
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} monumentArray={this.state.monumentArray}/>)
     }
   }
 });
@@ -97,7 +91,7 @@ var MonumentMap = React.createClass({
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
-        annotations={MONUMENTS} />
+        annotations={this.props.monumentArray} />
     </View>
   )},
 
