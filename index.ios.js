@@ -145,6 +145,11 @@ var MonumentDetail = React.createClass({
     this.state.audioFile.play();
   },
 
+  componentWillUnmount: function() {
+    this.state.audioFile.stop();
+    this.state.audioFile.release();
+  },
+
   render: function() {
     return (
       <View>
