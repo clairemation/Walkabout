@@ -25,8 +25,7 @@ var styles = StyleSheet.create({
     width: 60,
   },
   textContainer: {
-    borderWidth: 1,
-    borderColor: '#000000',
+
     height: 600,
     marginTop: 20,
   },

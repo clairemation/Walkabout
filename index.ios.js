@@ -3,6 +3,7 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
   StyleSheet,
   Text,
   View,
@@ -33,7 +34,7 @@ var WalkAbout = React.createClass({
     return {
       lastLat: 'unknown',
       lastLong: 'unknown',
-      inGeofence: true,
+      inGeofence: false,
     };
   },
 
@@ -112,6 +113,15 @@ var MonumentMap = React.createClass({
 })
 
 
+var H1 = React.createClass({
+  render: function() {
+    return (
+      <Text style={{fontSize: 24, fontWeight: 'bold'}}>{this.props.children}</Text>
+    );
+  }
+
+})
+
 var MonumentDetail = React.createClass({
 
   getInitialState: function() {
@@ -137,12 +147,15 @@ var MonumentDetail = React.createClass({
   render: function() {
     return (
       <View>
-        <SegmentedControlIOS values={['Map', 'Monument']}
+        <SegmentedControlIOS values={['Map', this.state.monument.title]}
                             selectedIndex={1}
                             style={{marginTop: 30}}
                             onChange={this.props.goBack} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{this.state.monument.title}</Text>
+          <H1>{this.state.monument.title}</H1>
+          <Image source={{uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'}}
+                  resizeMode='contain'
+                  style={{width: 300, height: 200}} />
           <Text style={styles.title}>{this.state.monument.description}</Text>
           <TouchableHighlight onPress={this.pauseAudio}>
             <Text>Pause</Text>
