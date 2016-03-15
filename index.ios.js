@@ -3,10 +3,12 @@
 import React, {
   AppRegistry,
   Component,
+  Image,
   StyleSheet,
   Text,
   View,
   MapView,
+  SegmentedControlIOS,
   TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
@@ -17,16 +19,12 @@ var Sound = require('react-native-sound');
 var MONUMENTS = [
   {
     title: "NYSE!",
-    latitude: 40.706851, 
+    latitude: 40.706851,
     longitude: -74.010158,
-    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
+    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City.",
+    uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'
   },
-  {
-    title: "The wrong Union Square",
-    latitude: 37.787689,
-    longitude: -122.406858,
-    description: "This version of Union Square has been deprecated."
-  }
+
 ]
 
 var WalkAbout = React.createClass({
@@ -40,7 +38,7 @@ var WalkAbout = React.createClass({
       inGeofence: false,
     };
   },
-  
+
   enableWatchPosition: function(){
     console.log('enable watch')
     this.watchID = navigator.geolocation.watchPosition((position) => {
@@ -53,7 +51,7 @@ var WalkAbout = React.createClass({
 
   disableWatchPosition: function(){
     console.log('disable watch')
-    navigator.geolocation.clearWatch(this.watchID); 
+    navigator.geolocation.clearWatch(this.watchID);
   },
 
 
@@ -75,14 +73,15 @@ var WalkAbout = React.createClass({
     }
   },
 
-  toggleGeofenceState: function() {
-    this.state.inGeofence = !this.state.inGeofence;
+  backToMap: function(){
+    this.setState({inGeofence: false})
   },
 
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering MonumentDetail')
-      return (<MonumentDetail monument={this.currentMonument} />)
+      return (<MonumentDetail monument={this.currentMonument}
+                              goBack={this.backToMap} />)
     }
     else{
       console.log('rendering map')
@@ -94,7 +93,7 @@ var WalkAbout = React.createClass({
 var MonumentMap = React.createClass({
   render: function(){ return(
      <View>
-      <MapView 
+      <MapView
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
@@ -115,12 +114,21 @@ var MonumentMap = React.createClass({
 })
 
 
+var H1 = React.createClass({
+  render: function() {
+    return (
+      <Text style={{fontSize: 24, fontWeight: 'bold'}}>{this.props.children}</Text>
+    );
+  }
+
+})
+
 var MonumentDetail = React.createClass({
 
   getInitialState: function() {
     return{
     monument: this.props.monument,
-    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
+    audioFile: new Sound('./ringding.mp3', Sound.MAIN_BUNDLE, (error) => {
       if(error){
         console.log('failed to load sound ', error)
       } else {
@@ -137,20 +145,25 @@ var MonumentDetail = React.createClass({
     this.state.audioFile.play();
   },
 
-  goBack: function() {
-    console.log("Back to map");
-  },
   render: function() {
     return (
       <View>
+        <SegmentedControlIOS values={['Map', this.state.monument.title]}
+                            selectedIndex={1}
+                            style={{marginTop: 30}}
+                            onChange={this.props.goBack} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{this.state.monument.title}</Text>
+          <H1>{this.state.monument.title}</H1>
+          <Image source={{uri: this.state.monument.uri}}
+                  resizeMode='contain'
+                  style={{width: 300, height: 200}} />
           <Text style={styles.title}>{this.state.monument.description}</Text>
-        </View>
-        <View>
-          <TouchableOpacity onPress={this.goBack}>
-            <Text>Back to Map</Text>
-          </TouchableOpacity>
+          <TouchableHighlight onPress={this.pauseAudio}>
+            <Text>Pause</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={this.playAudio}>
+            <Text>Replay</Text>
+          </TouchableHighlight>
         </View>
       </View>
       )
