@@ -13,7 +13,6 @@ var styles = StyleSheet.create({
     borderColor: '#000000',
   },
   title: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: '500',

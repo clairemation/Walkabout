@@ -117,7 +117,7 @@ var MonumentDetail = React.createClass({
   getInitialState: function() {
     return{
     monument: this.props.monument,
-    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
+    audioFile: new Sound('./ringding.mp3', Sound.MAIN_BUNDLE, (error) => {
       if(error){
         console.log('failed to load sound ', error)
       } else {
@@ -144,11 +144,12 @@ var MonumentDetail = React.createClass({
         <View style={styles.textContainer}>
           <Text style={styles.title}>{this.state.monument.title}</Text>
           <Text style={styles.title}>{this.state.monument.description}</Text>
-        </View>
-        <View>
-          <TouchableOpacity onPress={this.props.goBack}>
-            <Text>Back to Map</Text>
-          </TouchableOpacity>
+          <TouchableHighlight onPress={this.pauseAudio}>
+            <Text>Pause</Text>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={this.playAudio}>
+            <Text>Replay</Text>
+          </TouchableHighlight>
         </View>
       </View>
       )
