@@ -28,7 +28,7 @@ var MONUMENTS = [
 
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
-  currentMonument: undefined,
+  currentMonument: MONUMENTS[0],
 
   getInitialState: function() {
     return {
@@ -44,7 +44,10 @@ var WalkAbout = React.createClass({
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
       var self = this;
-      this.withinGeofence(latitude, longitude, self)
+      if (this.currentMonument)
+        this.checkForLeavingGeofence(latitude, longitude, this.currentMonument, self)
+      else
+        this.checkForEnteringGeofence(latitude, longitude, self)
     })
   },
 
@@ -53,8 +56,21 @@ var WalkAbout = React.createClass({
     navigator.geolocation.clearWatch(this.watchID);
   },
 
+  checkForLeavingGeofence: function(latitude, longitude, monument, self){
+    console.log('inside geofence, checking for user leaving')
+    var latDistance = latitude - monument.latitude;
+    var longDistance = longitude - monument.longitude;
+    if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= 0.001) {
+      self.currentMonument = nil
+      self.setState({
+          lastLat: latitude,
+          lastLong: longitude,
+          inGeofence: false,
+        })
+      }
+  },
 
-  withinGeofence: function(latitude, longitude, self){
+  checkForEnteringGeofence: function(latitude, longitude, self){
     console.log('checking geoFence')
     for(var i = 0; i < MONUMENTS.length; i++){
       var monument = MONUMENTS[i]
@@ -62,7 +78,7 @@ var WalkAbout = React.createClass({
       var longDistance = longitude - monument.longitude;
       if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.001) {
         console.log('within a geoFence')
-        self.currentMonument = MONUMENTS[i]
+        self.currentMonument = MONUMENTS[0]
         self.setState({
           lastLat: latitude,
           lastLong: longitude,
@@ -78,9 +94,8 @@ var WalkAbout = React.createClass({
 
   render: function() {
     if(this.state.inGeofence){
-      console.log('rendering MonumentDetail')
-      return (<MonumentDetail monument={MONUMENTS[0]}
-                              goBack={this.backToMap} />)
+      console.log('rendering inGeoFencePage')
+      return (<InGeoFencePage monument={MONUMENTS[0]} enableWatchLocation={this.enableWatchPosition} />)
     }
     else{
       console.log('rendering map')
@@ -90,20 +105,22 @@ var WalkAbout = React.createClass({
 });
 
 
-var inGeoFencePage = React.createClass({
+var InGeoFencePage = React.createClass({
 
-  monumentComponent: '<MonumentDetail monument={this.props.monument} />',
-  mapComponent: '<MonumentMap />',
+  monumentComponent: <MonumentDetail monument={MONUMENTS[0]} />,
+  mapComponent: <MonumentMap />,
 
   getInitialState: function() {
-    displayComponent: monument
+    return {
+      displayComponent: <MonumentDetail monument={this.props.monument} />
+    };
   },
 
   swapComponent: function(event) {
     if (event.nativeEvent.selectedSegmentIndex == 0)
-      this.setState({displayComponent: mapComponent});
+      this.setState({displayComponent: <MonumentMap enableWatchLocation={this.props.enableWatchLocation} />});
     else
-      this.setState({displayComponent: monumentComponent});
+      this.setState({displayComponent: <MonumentDetail monument={MONUMENTS[0]} />});
   },
 
   render: function() {
@@ -112,13 +129,14 @@ var inGeoFencePage = React.createClass({
         <SegmentedControlIOS values={['Map', this.props.monument.title]}
                             selectedIndex={1}
                             style={{marginTop: 30}}
-                            onChange={this.swapComponent(event)} />
+                            onChange={this.swapComponent} />
 
         {this.state.displayComponent}
       </View>
     );
   }
 });
+
 
 var MonumentMap = React.createClass({
   render: function(){ return(
@@ -138,7 +156,7 @@ var MonumentMap = React.createClass({
 
   componentWillUnmount: function() {
     console.log('map un-mounted')
-    this.props.disableWatchLocation();
+
   },
 
 })
