@@ -21,7 +21,8 @@ var MONUMENTS = [
     title: "NYSE!",
     latitude: 40.706851,
     longitude: -74.010158,
-    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
+    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City.",
+    uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'
   },
 
 ]
@@ -79,7 +80,7 @@ var WalkAbout = React.createClass({
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering MonumentDetail')
-      return (<MonumentDetail monument={MONUMENTS[0]}
+      return (<MonumentDetail monument={this.currentMonument}
                               goBack={this.backToMap} />)
     }
     else{
@@ -153,7 +154,7 @@ var MonumentDetail = React.createClass({
                             onChange={this.props.goBack} />
         <View style={styles.textContainer}>
           <H1>{this.state.monument.title}</H1>
-          <Image source={{uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'}}
+          <Image source={{uri: this.state.monument.uri}}
                   resizeMode='contain'
                   style={{width: 300, height: 200}} />
           <Text style={styles.title}>{this.state.monument.description}</Text>
