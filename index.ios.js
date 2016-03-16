@@ -20,6 +20,15 @@ var Sound = require('react-native-sound');
 var ENTERING_RADIUS = 0.001
 var LEAVING_RADIUS = 0.001
 
+var photoMap = {
+  'sssp': require('image!sssp'),
+  'cityHall': require('image!CityHall'),
+  'brooklynBridge': require('image!BrooklynBridge'),
+  'wallStreet': require('image!WallStreet'),
+  'astorPlace': require('image!AstorPlace'),
+  'WTC': require('image!WTC'),
+  'castleClinton': require('image!CastleClinton')
+}
 
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
@@ -138,7 +147,6 @@ var InGeoFencePage = React.createClass({
       <View>
         <SegmentedControlIOS values={['Map', this.props.monument.title]}
                             selectedIndex={1}
-                            style={{marginTop: 30}}
                             onChange={this.swapComponent} />
 
         {this.state.displayComponent}
@@ -212,7 +220,7 @@ var MonumentDetail = React.createClass({
           </View>
 
           <Image style={styles.monumentImage}
-            source={{uri: this.state.monument.uri}}/>
+            source={photoMap[this.state.monument.photo]}/>
 
           <View style={styles.monumentAudioCont}>
             <TouchableHighlight onPress={this.replayAudio} underlayColor={"white"} >
