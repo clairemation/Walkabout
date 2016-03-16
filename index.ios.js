@@ -39,7 +39,6 @@ var WalkAbout = React.createClass({
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      alert("position update")
       if (this.currentMonument)
         this.checkForLeavingGeofence(latitude, longitude, this.currentMonument)
       else
