@@ -1,4 +1,4 @@
-  'use strict';
+'use strict';
 
 import React, {
   AppRegistry,
@@ -17,14 +17,16 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
+var ENTERING_RADIUS = 0.001
+var LEAVING_RADIUS = 0.001
+
+
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
   currentMonument: undefined,
 
   getInitialState: function() {
     return {
-      lastLat: 'unknown',
-      lastLong: 'unknown',
       inGeofence: false,
       monumentArray: require('./ios/monuments.json'),
     };
@@ -37,58 +39,108 @@ var WalkAbout = React.createClass({
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
-      var self = this;
-      this.withinGeofence(latitude, longitude, self)
+      if (this.currentMonument)
+        this.checkForLeavingGeofence(latitude, longitude, this.currentMonument)
+      else
+        this.checkForEnteringGeofence(latitude, longitude)
     })
   },
 
-  disableWatchPosition: function(){
-    console.log('disable watch')
-    navigator.geolocation.clearWatch(this.watchID);
+  checkForLeavingGeofence: function(latitude, longitude, monument){
+    console.log('inside geofence, checking for user leaving')
+    var latDistance = latitude - monument.latitude;
+    var longDistance = longitude - monument.longitude;
+    if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= LEAVING_RADIUS) {
+      this.currentMonument = null
+      this.setState({
+          inGeofence: false,
+        })
+      }
   },
 
-
-  withinGeofence: function(latitude, longitude, self){
-    console.log('checking geoFence')
+  checkForEnteringGeofence: function(latitude, longitude){
+    console.log('outside geofences, checking for user entering')
     for(var i = 0; i < this.state.monumentArray.length; i++){
       var monument = this.state.monumentArray[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
-      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < 0.1) {
+      if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < ENTERING_RADIUS) {
         console.log('within a geoFence')
-        self.currentMonument = this.state.monumentArray[i]
-        self.setState({
-          lastLat: latitude,
-          lastLong: longitude,
+        this.currentMonument = this.state.monumentArray[i]
+        this.setState({
           inGeofence: true,
         })
       }
     }
   },
 
-  backToMap: function(){
-    this.setState({inGeofence: false})
-  },
+  componentDidMount: function(){
+    console.log('map mounted')
+    this.enableWatchPosition(); 
+  },//relocated from MonumentMap
 
   render: function() {
     if(this.state.inGeofence){
-      console.log('rendering MonumentDetail')
-      return (<MonumentDetail monument={this.currentMonument}
-                              goBack={this.backToMap} />)
+      console.log('rendering inGeoFencePage')
+      return (
+        <View>
+          <Image style={styles.banner}
+            source={require('image!banner')} />
+          <InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />
+        </View>
+        )
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} disableWatchLocation={this.disableWatchPosition} monumentArray={this.state.monumentArray}/>)
+      return (
+        <View>
+          <Image style={styles.banner}
+            source={require('image!banner')} />
+          <MonumentMap monumentArray={this.state.monumentArray}/>
+        </View>
+        )
     }
   }
 });
 
+
+var InGeoFencePage = React.createClass({
+
+  getInitialState: function() {
+    return {
+      displayComponent: <MonumentDetail monument={this.props.monument} />
+    };
+  },
+
+  componentDidMount: function(){
+    this.props.enableWatchLocation();
+  },
+
+  swapComponent: function(event) {
+    if (event.nativeEvent.selectedSegmentIndex == 0)
+      this.setState({displayComponent: <MonumentMap monumentArray={this.props.monumentArray} />});
+    else
+      this.setState({displayComponent: <MonumentDetail monument={this.props.monument} />});
+  },
+
+  render: function() {
+    return(
+      <View>
+        <SegmentedControlIOS values={['Map', this.props.monument.title]}
+                            selectedIndex={1}
+                            style={{marginTop: 30}}
+                            onChange={this.swapComponent} />
+
+        {this.state.displayComponent}
+      </View>
+    );
+  }
+});
+
+
 var MonumentMap = React.createClass({
   render: function(){ return(
      <View>
-     
-     <Image style={styles.banner}
-            source={require('image!banner')} />
       <MapView
         style={styles.map}
         showsUserLocation={true}
@@ -100,34 +152,21 @@ var MonumentMap = React.createClass({
     </View>
   )},
 
-  componentDidMount: function(){
-    console.log('map mounted')
-    this.props.enableWatchLocation();
-  },
+  
 
-  componentWillUnmount: function() {
-    console.log('map un-mounted')
-    this.props.disableWatchLocation();
-  },
+  // deleted componentWillUnmount that did nothing but a console.log
 
 })
 
 
-var H1 = React.createClass({
-  render: function() {
-    return (
-      <Text style={{fontSize: 24, fontWeight: 'bold'}}>{this.props.children}</Text>
-    );
-  }
-
-})
+// deleted H1 component that was never used
 
 var MonumentDetail = React.createClass({
 
   getInitialState: function() {
     return{
     monument: this.props.monument,
-    audioFile: new Sound('./ringding.mp3', Sound.MAIN_BUNDLE, (error) => {
+    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
       if(error){
         console.log('failed to load sound ', error)
       } else {
@@ -155,28 +194,21 @@ var MonumentDetail = React.createClass({
   render: function() {
     return (
       <View>
-        
-        <Image style={styles.banner}
-            source={require('image!banner')} />
-        
+
         <View style={styles.textContainer}>
-          
-          <SegmentedControlIOS values={['Map', this.state.monument.title]}
-                      selectedIndex={1}
-                      onChange={this.props.goBack} />
-           
+
           <View style={styles.monumentTitleCont}>
             <Text style={styles.monumentTitle}> {this.state.monument.title}</Text>
           </View>
 
-          <Image style={styles.monumentImage} 
+          <Image style={styles.monumentImage}
             source={{uri: this.state.monument.uri}}/>
-          
+
           <View style={styles.monumentAudioCont}>
             <TouchableHighlight onPress={this.replayAudio} underlayColor={"white"} >
               <Image source={require('image!replayButton')} style={styles.buttonReplay} />
             </TouchableHighlight>
-            
+
             <TouchableHighlight onPress={this.playAudio} underlayColor={"white"}>
               <Image source={require('image!playButton')} style={styles.buttonPlay} />
             </TouchableHighlight>
@@ -185,12 +217,12 @@ var MonumentDetail = React.createClass({
               <Image source={require('image!pauseButton')} style={styles.buttonPause}/>
             </TouchableHighlight>
           </View>
-          
+
           <ScrollView >
           <Text style={styles.description}>{this.state.monument.description}</Text>
           </ScrollView>
         </View>
-        
+
         <Image style={styles.footer}
             source={require('image!footer')}/>
 
