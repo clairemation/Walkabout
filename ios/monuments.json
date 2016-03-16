@@ -4,42 +4,32 @@
     "latitude": 40.706911,
     "longitude": -74.011045,
     "description": "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It began as a meeting of 24 men in 1792, and has evolved into one of the busiest and most hectic places in the country, where billions of shares are traded every single day.",
-    "uri": "http://siliconangle.com/files/2015/05/nyse.jpg"
+    "uri": "http://siliconangle.com/files/2015/05/nyse.jpg",
+    "sound": "./ding.mp3"
   },
   {
   	"title": "South Street Seaport",
   	"latitude": 27.667934,
   	"longitude": -114.902328,
   	"description": "The ports of New York City were critical to its early success and later prominence as an international center of trade. After the Civil War, however, the Hudson River became the favored site of major ports, and the South Street Seaport fell into decline. Now, as a museum, the Seaport is the largest privately owned collection of historic vessels in tonnage in the United States.",
-  	"uri": "http://1.bp.blogspot.com/-uo6VYBgE30Q/UeCb-Rn3JnI/AAAAAAAAb84/xbGj6GrQ3xo/s1600/DSC_0157.JPG"
+  	"uri": "http://1.bp.blogspot.com/-uo6VYBgE30Q/UeCb-Rn3JnI/AAAAAAAAb84/xbGj6GrQ3xo/s1600/DSC_0157.JPG",
+    "sound": "./ding.mp3"
   },
   {
     "title": "Pier 15",
     "latitude": 40.704432,
     "longitude": -74.003094,
     "description": "Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. Like Pier 1, but 15 times more. ",
-    "uri": ""
+    "uri": "",
+    "sound": "./ringding.mp3"
   },
   {
     "title": "Point of No Way",
     "latitude": 40.704532,
     "longitude": -74.005170,
     "description": "FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!",
-    "uri": ""
-  },
-    {
-    "title": "dos toros",
-    "latitude": 40.706943,
-    "longitude": -74.006896,
-    "description": "FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!",
-    "uri": ""
-  },
-  {
-    "title": "pearl st.",
-    "latitude": 40.705538,
-    "longitude": -74.007819,
-    "description": "FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things! FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!FDR drove all of the things!",
-    "uri": ""
+    "uri": "",
+    "sound": "./ringding.mp3"
   }
 ]
 
