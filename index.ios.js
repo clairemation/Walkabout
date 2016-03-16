@@ -39,11 +39,18 @@ var WalkAbout = React.createClass({
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
+      alert("position update")
       if (this.currentMonument)
         this.checkForLeavingGeofence(latitude, longitude, this.currentMonument)
       else
         this.checkForEnteringGeofence(latitude, longitude)
-    })
+      },
+      function error(err) {
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+      },
+      {enableHighAccuracy: true, timeout: 10000, maximumAge: 3000}
+    );
+    
   },
 
   checkForLeavingGeofence: function(latitude, longitude, monument){
