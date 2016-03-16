@@ -28,7 +28,7 @@
     "latitude": 40.704461,
     "longitude": -74.014367,
     "description": "Back when New York was still New Amsterdam, an artillery battery was stationed along the southern tip of what is now Manhattan, to protect the settlement from any potentially hostile seaward approaches to the town. The site retained this function through the Revolutionary War, and the last remaining evidence of this is Castle Clinton. The outer walls of Castle Clinton were declared a National Monument in 1946 after they were nearly completely demolished in 1941 by Robert Moses to link Manhattan and Brooklyn.",
-    "photo": "image!CastleClinton",
+    "photo": "castleClinton",
     "sound": ""
     },
     {
@@ -44,7 +44,7 @@
     "latitude": 40.729861,
     "longitude": -73.991434,
     "description": "Astor Place was home in the mid-to-late 19th century to New York City's most elite socialites, most notably John Jacob Astor, for whom it was named. The iconic Alamo sculpture, otherwise known as 'The Cube,' is a popular meeting spot for people on their way to dining and nightlife at nearby St. Marks Place. The Astor Place subway stop, an Art Nouveau-style tribute to the classic Metropolitain stations of Paris, is one of New York City's original 28 subway stations.",
-    "photo": "image!AstorPlace",
+    "photo": "astorPlace",
     "sound": "./ding.mp3"
   },
   {
@@ -52,7 +52,7 @@
     "latitude": 40.711667,
     "longitude": -74.0125,
     "description": "One World Trade Center, the centerpiece of the rebuilt World Trade Center complex, is the tallest building in the Western hemisphere. The sleek glass buildings surround a large open memorial to the victims of the September 11, 2001, terrorist attacks that destroyed the original complex. Providing a stark visual contrast is the new World Trade Center Transportation Hub, designed to look like a bird in flight but evoking critical comparisons to everything from a sleepy stegosaurus to a giant white space insect.",
-    "photo": "image!WTC",
+    "photo": "WTC",
     "sound": "./ding.mp3"
   }
 ]
