@@ -166,7 +166,7 @@ var MonumentDetail = React.createClass({
   getInitialState: function() {
     return{
     monument: this.props.monument,
-    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
+    audioFile: new Sound(this.props.monument.sound, Sound.MAIN_BUNDLE, (error) => {
       if(error){
         console.log('failed to load sound ', error)
       } else {
