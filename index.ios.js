@@ -74,6 +74,11 @@ var WalkAbout = React.createClass({
     }
   },
 
+  componentDidMount: function(){
+    console.log('map mounted')
+    this.props.enableWatchLocation(); 
+  },//relocated from MonumentMap
+
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
@@ -143,27 +148,14 @@ var MonumentMap = React.createClass({
     </View>
   )},
 
-  componentDidMount: function(){
-    console.log('map mounted')
-    this.props.enableWatchLocation();
-  },
+  
 
-  componentWillUnmount: function() {
-    console.log('map un-mounted')
-
-  },
+  // deleted componentWillUnmount that did nothing but a console.log
 
 })
 
 
-var H1 = React.createClass({
-  render: function() {
-    return (
-      <Text style={{fontSize: 24, fontWeight: 'bold'}}>{this.props.children}</Text>
-    );
-  }
-
-})
+// deleted H1 component that was never used
 
 var MonumentDetail = React.createClass({
 
