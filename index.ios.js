@@ -10,24 +10,16 @@ import React, {
   MapView,
   SegmentedControlIOS,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var MONUMENTS = [
-  {
-    title: "NYSE!",
-    latitude: 40.706851,
-    longitude: -74.010158,
-    description: "The New York Stock Exchange is the workplace of some of the most stressed out and insane workers in the country. It is the number one source for cocaine and pork belly futures in New York City."
-  },
-
-]
-
 var ENTERING_RADIUS = 0.001
 var LEAVING_RADIUS = 0.001
+
 
 var WalkAbout = React.createClass({
   watchID: (null: ?number),
@@ -36,8 +28,11 @@ var WalkAbout = React.createClass({
   getInitialState: function() {
     return {
       inGeofence: false,
+      monumentArray: require('./ios/monuments.json'),
     };
   },
+
+
 
   enableWatchPosition: function(){
     console.log('enable watch')
@@ -65,13 +60,13 @@ var WalkAbout = React.createClass({
 
   checkForEnteringGeofence: function(latitude, longitude){
     console.log('outside geofences, checking for user entering')
-    for(var i = 0; i < MONUMENTS.length; i++){
-      var monument = MONUMENTS[i]
+    for(var i = 0; i < this.state.monumentArray.length; i++){
+      var monument = this.state.monumentArray[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
       if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < ENTERING_RADIUS) {
         console.log('within a geoFence')
-        this.currentMonument = MONUMENTS[i]
+        this.currentMonument = this.state.monumentArray[i]
         this.setState({
           inGeofence: true,
         })
@@ -86,7 +81,7 @@ var WalkAbout = React.createClass({
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} />)
+      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} monumentArray={this.state.monumentArray}/>)
     }
   }
 });
@@ -129,11 +124,17 @@ var InGeoFencePage = React.createClass({
 var MonumentMap = React.createClass({
   render: function(){ return(
      <View>
+
+     <Image style={styles.banner}
+            source={require('image!banner')} />
       <MapView
         style={styles.map}
         showsUserLocation={true}
         followUserLocation={true}
-        annotations={MONUMENTS} />
+        annotations={this.props.monumentArray} />
+      <Image style={styles.footer}
+            source={require('image!footer')} />
+
     </View>
   )},
 
@@ -176,27 +177,59 @@ var MonumentDetail = React.createClass({
   pauseAudio: function() {
     this.state.audioFile.pause();
   },
-
+  replayAudio: function() {
+    this.state.audioFile.stop();
+    this.state.audioFile.play();
+  },
   playAudio: function() {
     this.state.audioFile.play();
+  },
+
+  componentWillUnmount: function() {
+    this.state.audioFile.stop();
+    this.state.audioFile.release();
   },
 
   render: function() {
     return (
       <View>
+        <Image style={styles.banner}
+            source={require('image!banner')} />
         <View style={styles.textContainer}>
-          <H1>{this.state.monument.title}</H1>
-          <Image source={{uri: 'http://siliconangle.com/files/2015/05/nyse.jpg'}}
-                  resizeMode='contain'
-                  style={{width: 300, height: 200}} />
-          <Text style={styles.title}>{this.state.monument.description}</Text>
-          <TouchableHighlight onPress={this.pauseAudio}>
-            <Text>Pause</Text>
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.playAudio}>
-            <Text>Replay</Text>
-          </TouchableHighlight>
+
+          <SegmentedControlIOS values={['Map', this.state.monument.title]}
+                      selectedIndex={1}
+                      onChange={this.props.goBack} />
+
+          <View style={styles.monumentTitleCont}>
+            <Text style={styles.monumentTitle}> {this.state.monument.title}</Text>
+          </View>
+
+          <Image style={styles.monumentImage}
+            source={{uri: this.state.monument.uri}}/>
+
+          <View style={styles.monumentAudioCont}>
+            <TouchableHighlight onPress={this.replayAudio} underlayColor={"white"} >
+              <Image source={require('image!replayButton')} style={styles.buttonReplay} />
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={this.playAudio} underlayColor={"white"}>
+              <Image source={require('image!playButton')} style={styles.buttonPlay} />
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={this.pauseAudio} underlayColor={"white"}>
+              <Image source={require('image!pauseButton')} style={styles.buttonPause}/>
+            </TouchableHighlight>
+          </View>
+
+          <ScrollView >
+          <Text style={styles.description}>{this.state.monument.description}</Text>
+          </ScrollView>
         </View>
+
+        <Image style={styles.footer}
+            source={require('image!footer')}/>
+
       </View>
       )
   }

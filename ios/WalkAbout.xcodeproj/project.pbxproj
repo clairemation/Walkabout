@@ -25,6 +25,7 @@
 		D710A7131C96184200B21A97 /* ringding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A7121C96184200B21A97 /* ringding.mp3 */; };
 		D710A71A1C96197700B21A97 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D710A7191C96195900B21A97 /* libRNSound.a */; };
 		D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A71B1C962B0500B21A97 /* ding.mp3 */; };
+		D7A1A6FC1C988ACD00CD20E3 /* monuments.json in Resources */ = {isa = PBXBuildFile; fileRef = D7A1A6FB1C988ACD00CD20E3 /* monuments.json */; };
 		EFD89F7D97D0406796C28C4B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C512C7D315E2439DB32E969B /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +151,7 @@
 		D710A7121C96184200B21A97 /* ringding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringding.mp3; sourceTree = "<group>"; };
 		D710A7141C96195900B21A97 /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		D710A71B1C962B0500B21A97 /* ding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ding.mp3; sourceTree = "<group>"; };
+		D7A1A6FB1C988ACD00CD20E3 /* monuments.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = monuments.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +324,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				D710A7121C96184200B21A97 /* ringding.mp3 */,
 				D710A71B1C962B0500B21A97 /* ding.mp3 */,
+				D7A1A6FB1C988ACD00CD20E3 /* monuments.json */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = WB3ZNNE7VU;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -577,6 +581,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7A1A6FC1C988ACD00CD20E3 /* monuments.json in Resources */,
 				D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -648,6 +653,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -665,6 +672,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WalkAbout.app/WalkAbout";
 			};
 			name = Debug;
@@ -673,6 +681,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -687,6 +697,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WalkAbout.app/WalkAbout";
 			};
 			name = Release;
