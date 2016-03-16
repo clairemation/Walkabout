@@ -17,8 +17,8 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var ENTERING_RADIUS = 0.001
-var LEAVING_RADIUS = 0.001
+var ENTERING_RADIUS = 0.1
+var LEAVING_RADIUS = 0.1
 
 
 var WalkAbout = React.createClass({
@@ -77,7 +77,7 @@ var WalkAbout = React.createClass({
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
-      return (<InGeoFencePage monument={this.currentMonument} enableWatchLocation={this.enableWatchPosition} />)
+      return (<InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />)
     }
     else{
       console.log('rendering map')
@@ -101,7 +101,7 @@ var InGeoFencePage = React.createClass({
 
   swapComponent: function(event) {
     if (event.nativeEvent.selectedSegmentIndex == 0)
-      this.setState({displayComponent: <MonumentMap enableWatchLocation={this.props.enableWatchLocation} />});
+      this.setState({displayComponent: <MonumentMap monumentArray={this.props.monumentArray} enableWatchLocation={this.props.enableWatchLocation} />});
     else
       this.setState({displayComponent: <MonumentDetail monument={this.props.monument} />});
   },
@@ -109,6 +109,8 @@ var InGeoFencePage = React.createClass({
   render: function() {
     return(
       <View>
+        <Image style={styles.banner}
+          source={require('image!banner')} />
         <SegmentedControlIOS values={['Map', this.props.monument.title]}
                             selectedIndex={1}
                             style={{marginTop: 30}}
@@ -124,9 +126,6 @@ var InGeoFencePage = React.createClass({
 var MonumentMap = React.createClass({
   render: function(){ return(
      <View>
-
-     <Image style={styles.banner}
-            source={require('image!banner')} />
       <MapView
         style={styles.map}
         showsUserLocation={true}
@@ -193,13 +192,8 @@ var MonumentDetail = React.createClass({
   render: function() {
     return (
       <View>
-        <Image style={styles.banner}
-            source={require('image!banner')} />
-        <View style={styles.textContainer}>
 
-          <SegmentedControlIOS values={['Map', this.state.monument.title]}
-                      selectedIndex={1}
-                      onChange={this.props.goBack} />
+        <View style={styles.textContainer}>
 
           <View style={styles.monumentTitleCont}>
             <Text style={styles.monumentTitle}> {this.state.monument.title}</Text>
