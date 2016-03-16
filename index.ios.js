@@ -81,11 +81,15 @@ var WalkAbout = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log('map mounted')
+    console.log("I am console logging the monument array");
+    console.log(typeof this.state.monumentArray)
+    console.log(this.state.monumentArray);
     this.enableWatchPosition(); 
   },//relocated from MonumentMap
 
   render: function() {
+    this.state.monumentArray.forEach(function(object){
+        object.image = require('image!annotationMarker')});
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
       return (
