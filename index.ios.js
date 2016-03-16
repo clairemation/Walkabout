@@ -76,24 +76,28 @@ var WalkAbout = React.createClass({
 
   componentDidMount: function(){
     console.log('map mounted')
-    this.props.enableWatchLocation(); 
+    this.enableWatchPosition(); 
   },//relocated from MonumentMap
 
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
       return (
-        <Image style={styles.banner}
-          source={require('image!banner')} />
-        <InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />
+        <View>
+          <Image style={styles.banner}
+            source={require('image!banner')} />
+          <InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />
+        </View>
         )
     }
     else{
       console.log('rendering map')
       return (
-        <Image style={styles.banner}
-          source={require('image!banner')} />
-        <MonumentMap enableWatchLocation={this.enableWatchPosition} monumentArray={this.state.monumentArray}/>
+        <View>
+          <Image style={styles.banner}
+            source={require('image!banner')} />
+          <MonumentMap monumentArray={this.state.monumentArray}/>
+        </View>
         )
     }
   }
@@ -114,7 +118,7 @@ var InGeoFencePage = React.createClass({
 
   swapComponent: function(event) {
     if (event.nativeEvent.selectedSegmentIndex == 0)
-      this.setState({displayComponent: <MonumentMap monumentArray={this.props.monumentArray} enableWatchLocation={this.props.enableWatchLocation} />});
+      this.setState({displayComponent: <MonumentMap monumentArray={this.props.monumentArray} />});
     else
       this.setState({displayComponent: <MonumentDetail monument={this.props.monument} />});
   },
