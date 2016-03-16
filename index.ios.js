@@ -17,8 +17,8 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var ENTERING_RADIUS = 0.1
-var LEAVING_RADIUS = 0.1
+var ENTERING_RADIUS = 0.001
+var LEAVING_RADIUS = 0.001
 
 
 var WalkAbout = React.createClass({
@@ -77,11 +77,19 @@ var WalkAbout = React.createClass({
   render: function() {
     if(this.state.inGeofence){
       console.log('rendering inGeoFencePage')
-      return (<InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />)
+      return (
+        <Image style={styles.banner}
+          source={require('image!banner')} />
+        <InGeoFencePage monument={this.currentMonument} monumentArray={this.state.monumentArray} enableWatchLocation={this.enableWatchPosition} />
+        )
     }
     else{
       console.log('rendering map')
-      return (<MonumentMap enableWatchLocation={this.enableWatchPosition} monumentArray={this.state.monumentArray}/>)
+      return (
+        <Image style={styles.banner}
+          source={require('image!banner')} />
+        <MonumentMap enableWatchLocation={this.enableWatchPosition} monumentArray={this.state.monumentArray}/>
+        )
     }
   }
 });
@@ -109,8 +117,6 @@ var InGeoFencePage = React.createClass({
   render: function() {
     return(
       <View>
-        <Image style={styles.banner}
-          source={require('image!banner')} />
         <SegmentedControlIOS values={['Map', this.props.monument.title]}
                             selectedIndex={1}
                             style={{marginTop: 30}}
@@ -164,7 +170,7 @@ var MonumentDetail = React.createClass({
   getInitialState: function() {
     return{
     monument: this.props.monument,
-    audioFile: new Sound('./ringding.mp3', Sound.MAIN_BUNDLE, (error) => {
+    audioFile: new Sound('./ding.mp3', Sound.MAIN_BUNDLE, (error) => {
       if(error){
         console.log('failed to load sound ', error)
       } else {
