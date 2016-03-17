@@ -17,8 +17,8 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var ENTERING_RADIUS = 0.001
-var LEAVING_RADIUS = 0.001
+var ENTERING_RADIUS = 1
+var LEAVING_RADIUS = 1
 
 var photoMap = {
   'sssp': require('image!sssp'),
@@ -116,6 +116,8 @@ var WalkAbout = React.createClass({
           <Image style={styles.banner}
             source={require('image!banner')} />
           <MonumentMap monumentArray={this.state.monumentArray}/>
+          <Image style={styles.footer}
+            source={require('image!footer')} />
         </View>
         )
     }
@@ -147,9 +149,12 @@ var InGeoFencePage = React.createClass({
       <View>
         <SegmentedControlIOS values={['Map', this.props.monument.title]}
                             selectedIndex={1}
+                            style={styles.segmentControl}
                             onChange={this.swapComponent} />
 
         {this.state.displayComponent}
+        <Image style={styles.footer}
+            source={require('image!footer')} />
       </View>
     );
   }
@@ -164,8 +169,6 @@ var MonumentMap = React.createClass({
         showsUserLocation={true}
         followUserLocation={true}
         annotations={this.props.monumentArray} />
-      <Image style={styles.footer}
-            source={require('image!footer')} />
 
     </View>
   )},
