@@ -17,8 +17,8 @@ import React, {
 var styles = require('./styles.ios.js');
 var Sound = require('react-native-sound');
 
-var ENTERING_RADIUS = 1
-var LEAVING_RADIUS = 1
+var ENTERING_RADIUS = 0.001
+var LEAVING_RADIUS = 0.001
 
 var photoMap = {
   'sssp': require('image!sssp'),
@@ -44,7 +44,6 @@ var WalkAbout = React.createClass({
 
 
   enableWatchPosition: function(){
-    console.log('enable watch')
     this.watchID = navigator.geolocation.watchPosition((position) => {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
@@ -62,7 +61,6 @@ var WalkAbout = React.createClass({
   },
 
   checkForLeavingGeofence: function(latitude, longitude, monument){
-    console.log('inside geofence, checking for user leaving')
     var latDistance = latitude - monument.latitude;
     var longDistance = longitude - monument.longitude;
     if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) >= LEAVING_RADIUS) {
@@ -74,13 +72,11 @@ var WalkAbout = React.createClass({
   },
 
   checkForEnteringGeofence: function(latitude, longitude){
-    console.log('outside geofences, checking for user entering')
     for(var i = 0; i < this.state.monumentArray.length; i++){
       var monument = this.state.monumentArray[i]
       var latDistance = latitude - monument.latitude;
       var longDistance = longitude - monument.longitude;
       if (Math.sqrt(Math.pow(latDistance, 2) + Math.pow(longDistance, 2)) < ENTERING_RADIUS) {
-        console.log('within a geoFence')
         this.currentMonument = this.state.monumentArray[i]
         this.setState({
           inGeofence: true,
@@ -90,9 +86,6 @@ var WalkAbout = React.createClass({
   },
 
   componentDidMount: function(){
-    console.log("I am console logging the monument array");
-    console.log(typeof this.state.monumentArray)
-    console.log(this.state.monumentArray);
     this.enableWatchPosition(); 
   },//relocated from MonumentMap
 
@@ -100,7 +93,6 @@ var WalkAbout = React.createClass({
     this.state.monumentArray.forEach(function(object){
         object.image = require('image!annotationMarker')});
     if(this.state.inGeofence){
-      console.log('rendering inGeoFencePage')
       return (
         <View>
           <Image style={styles.banner}
@@ -110,7 +102,6 @@ var WalkAbout = React.createClass({
         )
     }
     else{
-      console.log('rendering map')
       return (
         <View>
           <Image style={styles.banner}
