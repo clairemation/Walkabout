@@ -77,8 +77,7 @@ var styles = StyleSheet.create({
     height: 580,
     borderColor: '#000000',
   },
-  SegmentedControlIOS: {
-    backgroundColor: '#00FF00'
+  segmentControl: {
   }
 
 });

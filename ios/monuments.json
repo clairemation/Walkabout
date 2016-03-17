@@ -5,7 +5,7 @@
     "longitude": -114.902328,
     "description": "The ports of New York City were critical to its early success and later prominence as an international center of trade. After the Civil War, however, the Hudson River became the favored site of major ports, and the South Street Seaport fell into decline. Now, as a museum, the Seaport is the largest privately owned collection of historic vessels in tonnage in the United States.",
     "photo": "sssp",
-    "sound": "./ding.mp3"
+    "sound": "./sssp.mp3"
   },
   {
     "title": "City Hall",
@@ -13,7 +13,7 @@
     "longitude": -74.006193,
     "description": "Originally built at the northernmost point of New York City, it was built with the expectation that the city would never reach further north, and while the majority of the facade was built out of marble, the rear of the building to the north was made with brownstone to save money. It was renovated to be made exclusively of limestone in 1954. ",
     "photo": "cityHall",
-    "sound": ""
+    "sound": "./CityHall.mp3"
     },
   {
     "title": "Brooklyn Bridge",
@@ -21,7 +21,7 @@
     "longitude": -74.004891,
     "description": "For Sale: Cheap",
     "photo": "brooklynBridge",
-    "sound": ""
+    "sound": "./BrooklynBridge.mp3"
     },
   {
     "title": "Battery Park",
@@ -29,7 +29,7 @@
     "longitude": -74.014367,
     "description": "Back when New York was still New Amsterdam, an artillery battery was stationed along the southern tip of what is now Manhattan, to protect the settlement from any potentially hostile seaward approaches to the town. The site retained this function through the Revolutionary War, and the last remaining evidence of this is Castle Clinton. The outer walls of Castle Clinton were declared a National Monument in 1946 after they were nearly completely demolished in 1941 by Robert Moses to link Manhattan and Brooklyn.",
     "photo": "castleClinton",
-    "sound": ""
+    "sound": "./CastleClinton.mp3"
     },
     {
     "title": "Wall Street",
@@ -37,7 +37,7 @@
     "longitude": -74.009029,
     "description": "At the heart of Manhattan's financial district is Wall Street, which runs eight blocks from Broadway to South Street, tracing the original northern border of early New Amsterdam. Wall Street began as an informal marketplace for stocks and bonds. In 1792 traders formed the Buttonwood Agreement, which later became the New York City Stock Exchange. George Washington took the first U.S. presidential oath of office in Federal Hall, and Alexander Hamilton, the architect of the U.S. financial system, is buried at Trinity Church.",
     "photo": "wallStreet",
-    "sound": "./ding.mp3"
+    "sound": "./WallStreet.mp3"
   },
   {
     "title": "Astor Place",
@@ -45,7 +45,7 @@
     "longitude": -73.991434,
     "description": "Astor Place was home in the mid-to-late 19th century to New York City's most elite socialites, most notably John Jacob Astor, for whom it was named. The iconic Alamo sculpture, otherwise known as 'The Cube,' is a popular meeting spot for people on their way to dining and nightlife at nearby St. Marks Place. The Astor Place subway stop, an Art Nouveau-style tribute to the classic Metropolitain stations of Paris, is one of New York City's original 28 subway stations.",
     "photo": "astorPlace",
-    "sound": "./ding.mp3"
+    "sound": "./AstorPlace.mp3"
   },
   {
     "title": "World Trade Center",
@@ -53,7 +53,7 @@
     "longitude": -74.0125,
     "description": "One World Trade Center, the centerpiece of the rebuilt World Trade Center complex, is the tallest building in the Western hemisphere. The sleek glass buildings surround a large open memorial to the victims of the September 11, 2001, terrorist attacks that destroyed the original complex. Providing a stark visual contrast is the new World Trade Center Transportation Hub, designed to look like a bird in flight but evoking critical comparisons to everything from a sleepy stegosaurus to a giant white space insect.",
     "photo": "WTC",
-    "sound": "./ding.mp3"
+    "sound": "./WTC.mp3"
   }
 ]
 

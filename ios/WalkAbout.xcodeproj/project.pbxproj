@@ -23,6 +23,13 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5B73F78C1C9A07B200BFDE48 /* annotationMarker.png in Resources */ = {isa = PBXBuildFile; fileRef = 5B73F78B1C9A07B200BFDE48 /* annotationMarker.png */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		D70925481C9A4CBC00F2B93A /* WallStreet.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D70925471C9A4CBC00F2B93A /* WallStreet.mp3 */; };
+		D70925561C9A4D9800F2B93A /* AstorPlace.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D70925551C9A4D9800F2B93A /* AstorPlace.mp3 */; };
+		D70925581C9A4DCE00F2B93A /* BrooklynBridge.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D70925571C9A4DCE00F2B93A /* BrooklynBridge.mp3 */; };
+		D709255A1C9A4E0600F2B93A /* CastleClinton.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D70925591C9A4E0600F2B93A /* CastleClinton.mp3 */; };
+		D709255C1C9A4EE500F2B93A /* CityHall.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D709255B1C9A4EE500F2B93A /* CityHall.mp3 */; };
+		D709255E1C9A4F1900F2B93A /* sssp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D709255D1C9A4F1900F2B93A /* sssp.mp3 */; };
+		D70925601C9A4F5C00F2B93A /* WTC.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D709255F1C9A4F5C00F2B93A /* WTC.mp3 */; };
 		D710A7131C96184200B21A97 /* ringding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A7121C96184200B21A97 /* ringding.mp3 */; };
 		D710A71A1C96197700B21A97 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D710A7191C96195900B21A97 /* libRNSound.a */; };
 		D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D710A71B1C962B0500B21A97 /* ding.mp3 */; };
@@ -149,6 +156,13 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C512C7D315E2439DB32E969B /* libAirMaps.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAirMaps.a; sourceTree = "<group>"; };
+		D70925471C9A4CBC00F2B93A /* WallStreet.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WallStreet.mp3; sourceTree = "<group>"; };
+		D70925551C9A4D9800F2B93A /* AstorPlace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AstorPlace.mp3; sourceTree = "<group>"; };
+		D70925571C9A4DCE00F2B93A /* BrooklynBridge.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BrooklynBridge.mp3; sourceTree = "<group>"; };
+		D70925591C9A4E0600F2B93A /* CastleClinton.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CastleClinton.mp3; sourceTree = "<group>"; };
+		D709255B1C9A4EE500F2B93A /* CityHall.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CityHall.mp3; sourceTree = "<group>"; };
+		D709255D1C9A4F1900F2B93A /* sssp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sssp.mp3; sourceTree = "<group>"; };
+		D709255F1C9A4F5C00F2B93A /* WTC.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WTC.mp3; sourceTree = "<group>"; };
 		D710A66E1C94D3CE00B21A97 /* react-native-viewport-units */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "react-native-viewport-units"; path = "../node_modules/react-native-viewport-units"; sourceTree = "<group>"; };
 		D710A7121C96184200B21A97 /* ringding.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringding.mp3; sourceTree = "<group>"; };
 		D710A7141C96195900B21A97 /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
@@ -328,6 +342,13 @@
 				D710A71B1C962B0500B21A97 /* ding.mp3 */,
 				D7A1A6FB1C988ACD00CD20E3 /* monuments.json */,
 				5B73F78B1C9A07B200BFDE48 /* annotationMarker.png */,
+				D70925471C9A4CBC00F2B93A /* WallStreet.mp3 */,
+				D70925551C9A4D9800F2B93A /* AstorPlace.mp3 */,
+				D70925571C9A4DCE00F2B93A /* BrooklynBridge.mp3 */,
+				D70925591C9A4E0600F2B93A /* CastleClinton.mp3 */,
+				D709255B1C9A4EE500F2B93A /* CityHall.mp3 */,
+				D709255D1C9A4F1900F2B93A /* sssp.mp3 */,
+				D709255F1C9A4F5C00F2B93A /* WTC.mp3 */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -586,10 +607,17 @@
 			files = (
 				5B73F78C1C9A07B200BFDE48 /* annotationMarker.png in Resources */,
 				D7A1A6FC1C988ACD00CD20E3 /* monuments.json in Resources */,
+				D709255A1C9A4E0600F2B93A /* CastleClinton.mp3 in Resources */,
+				D70925561C9A4D9800F2B93A /* AstorPlace.mp3 in Resources */,
+				D70925481C9A4CBC00F2B93A /* WallStreet.mp3 in Resources */,
 				D710A71C1C962B0500B21A97 /* ding.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D70925581C9A4DCE00F2B93A /* BrooklynBridge.mp3 in Resources */,
+				D709255C1C9A4EE500F2B93A /* CityHall.mp3 in Resources */,
+				D70925601C9A4F5C00F2B93A /* WTC.mp3 in Resources */,
 				D710A7131C96184200B21A97 /* ringding.mp3 in Resources */,
+				D709255E1C9A4F1900F2B93A /* sssp.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
