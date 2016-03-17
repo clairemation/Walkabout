@@ -15,7 +15,7 @@ var styles = StyleSheet.create({
     width: 375,
   },
   map: {
-    height: 580,
+    height: 552,
     borderColor: '#000000',
   },
   monumentTitleCont: {
@@ -71,9 +71,12 @@ var styles = StyleSheet.create({
     width: 60,
   },
   textContainer: {
-
-    height: 580,
+    height: 552,
   },
+  mainMap: {
+    height: 580,
+    borderColor: '#000000',
+  }
 });
 
 module.exports = styles;
