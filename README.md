@@ -10,7 +10,7 @@ Zander Nelson: Lead, DevOps2, Designer
 
 #General Instructions
 
-![ScreenShot1](./IMG_2705.png) ![ScreenShot2](./IMG_2706.png)
+![ScreenShot1](./IMG_2705.PNG) ![ScreenShot2](./IMG_2706.PNG)
 
 1. At opening, the application brings the user to a fullscreen map centered on their current location.
 2. The fullscreen map highlights the pre-selected monuments via a custom marker, and the user's current location with a separate marker.
