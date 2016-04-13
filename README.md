@@ -1,39 +1,28 @@
-# Trips
-1. As a user, I want to open the app and see a map of nearby locations with related audio.
-2. As a user, I want audio to autoplay when I hit a geotrigger.
-3. As a user, I want to see a relevant photo to the audio playing.
-4. As a user, I want to be able to navigate to a list of locations sorted by proximity.
-5. As a user, I want to be a ble to stop a given audio track manually.
-6. As a user, I want to see a path to the nearest location.
-7. As a user, I want to be able to produce my own content.
-8. As a user, I want to be able to rate user content.
+# WalkAbout
 
-Time estimates:
-Research: 48 hours
-User story 1: 30 hours    MVP
-User story 2: 70 hours    MVP
-User story 3: 5 hours     MVP
-Create content: 5 hours   MVP
-User story 4: 4 hours     Stretch
-User story 5: 15 hours    Stretch
-User story 6: 20 hours    Stretch
-User story 7: 30 hours    N2H
-User story 8: 30 hours    N2H
+Walkabout is your mobile tour guide for iOS, serving as an alternative to private tour guides or large tour groups. When you approach one of Walkabout's monuments, the app voices a brief description and history, and displays a photo and text transcript. Walkabout features eight monuments, and may be expanded to include many more.
 
-Working Agreement & Designations
-*Andrew: DevOps, QA
-  -Saturday possible dental surgery, 8P hard deadline
-*Devin: Git Master, QA
-  -Sat&Sun 10A-7P, 8:30 hard deadline, likely between 7:30-8:30
-*Claire Designer
-  -Sat&Sun, times up in the air due to illness
-*Zander Lead, DevOps2, Designer
-  -Sat&Sun, 10A-7Pish
+Team:
+Andrew Kim
+Devin Mandelbaum
+Claire Samuels 
+Zander Nelson
 
-"name/feature" template for branches
-Devin approves all merges to master except his own.
+#General Instructions
 
-Standups: (what we've done, what we're working on, what we're blocked by)
-* Beginning of Day
-* Before Lunch
-* Before first person leaves
+<img src="./IMG_2705.PNG" width="40%">
+<img src="./IMG_2706.PNG" width="40%">
+
+1. At opening, the application displays a fullscreen map centered on your location.
+2. Your location is marked with a blue dot. Monuments are marked with Walkabout's icon.
+3. When you step within range of a monument, it automatically switches to a detail view and starts audio narration.
+4. The detail view displays a photo of the monument and a text transcript of the narration. At the top is a tab bar for toggling detail and map views. Above the text are audio controls.
+5. The audio controls let you restart, play/resume, and pause.
+6. When you go out of range of the monument, the you're returned to the fullscreen map.
+
+#Technical Details
+
+* Walkabout was written in React Native, primarily in JavaScript ES6.
+* We wrote our own geofencing algorithm, using the Pythagorean Theorem to establish our distance from each monument.
+* We used React-Native-Sound as our audio player, and MapView Component to display our maps and follow the user's location.
+* We used the built-in Location Services via Background Geolocation for React Native to acquire the current position of the user.
