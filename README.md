@@ -5,7 +5,7 @@ Walkabout is your mobile tour guide for iOS, serving as an alternative to privat
 Team:
 Andrew Kim
 Devin Mandelbaum
-Claire Samuels
+Claire Samuels 
 Zander Nelson
 
 #General Instructions
